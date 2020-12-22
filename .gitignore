@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+src/assets/images
+src/boiletplate
 
 
 # local env files
