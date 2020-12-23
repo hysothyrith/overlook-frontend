@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "imageSrc": "https://source.unsplash.com/random",
+    "imageAlt": "Random Unsplash Picture",
+    "caption": "In the heart of Phnom Penh",
+    "title": "Overlook One",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi blanditiis consectetur cupiditate distinctio dolore esse libero nam tenetur voluptatibus.",
+    "hotelId": 1
+  },
+  {
+    "id": 2,
+    "imageSrc": "https://source.unsplash.com/random",
+    "imageAlt": "Random Unsplash Picture",
+    "caption": "In the city of Siem Reap",
+    "title": "The Grand Overlook",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi blanditiis consectetur cupiditate distinctio dolore esse libero nam tenetur voluptatibus.",
+    "hotelId": 2
+  }
+]

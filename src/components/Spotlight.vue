@@ -1,21 +1,25 @@
 <template>
   <div class="ovl-grid">
     <ovl-carousel
+      v-if="isReady"
       :carouselImages="carouselImages"
       class="spotlight__carousel"
       @did-change="carouselDidChange"
     />
-    <div class="ovl-grid__body spotlight__body">
+    <div v-if="isReady" class="ovl-grid__body spotlight__body">
       <div class="caption caption--pretitle">{{ spotlightCaption }}</div>
       <h2 class="heading-1">{{ spotlightTitle }}</h2>
-      <div class="spotlight__description">
+      <div class="spotlight__description body">
         {{ spotlightDescription }}
       </div>
       <div class="spotlight__action-container">
-        <router-link to="/book">
-          <ovl-button class="spotlight__action">Book a stay</ovl-button>
-        </router-link>
-        <ovl-button type="outline" class="spotlight__action"
+        <ovl-button class="spotlight__action" @click="bookButtonDidClick"
+          >Book a stay</ovl-button
+        >
+        <ovl-button
+          type="outline"
+          class="spotlight__action"
+          @click="aboutButtonDidClick"
           >About hotel</ovl-button
         >
       </div>
@@ -25,38 +29,76 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import axios from "axios";
+
 import OvlCarousel from "@/components/atomic/OvlCarousel.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
+import VueRouter from "vue-router";
 
 @Component({
   components: { OvlCarousel, OvlButton },
 })
 export default class Spotlight extends Vue {
-  @Prop({ required: true }) private spotlightSlides!: SpotlightSlide[];
-
+  spotlights: SpotlightSlide[] = [];
+  carouselImages: Image[] = [];
+  isReady = false;
   currentIndex = 0;
-  carouselImages: Image[] = this.spotlightSlides.map((slide) => {
-    return {
-      id: slide.id,
-      src: slide.imgSrc,
-      alt: slide.imgAlt,
-    };
-  });
+
+  created() {
+    this.fetchData();
+  }
 
   get spotlightCaption() {
-    return this.spotlightSlides[this.currentIndex].caption;
+    return this.spotlights[this.currentIndex].caption;
   }
 
   get spotlightTitle() {
-    return this.spotlightSlides[this.currentIndex].title;
+    return this.spotlights[this.currentIndex].title;
   }
 
   get spotlightDescription() {
-    return this.spotlightSlides[this.currentIndex].description;
+    return this.spotlights[this.currentIndex].description;
+  }
+
+  get hotelId() {
+    return this.spotlights[this.currentIndex].hotelId;
   }
 
   carouselDidChange(index: number) {
     this.currentIndex = index;
+  }
+
+  fetchData() {
+    axios
+      .get("https://5fe1977804f0780017de9e55.mockapi.io/api/spotlights")
+      .then((response) => {
+        this.spotlights = response.data;
+        this.carouselImages = this.spotlights.map((spotlight) => {
+          return {
+            id: spotlight.id,
+            src: spotlight.imgSrc,
+            alt: spotlight.imgAlt,
+          };
+        });
+        this.isReady = true;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  bookButtonDidClick() {
+    this.$router.push({
+      path: "book",
+      query: { hotelId: this.hotelId.toString() },
+    });
+  }
+
+  aboutButtonDidClick() {
+    this.$router.push({
+      name: "Hotels",
+      hash: `#${this.hotelId}`,
+    });
   }
 }
 </script>

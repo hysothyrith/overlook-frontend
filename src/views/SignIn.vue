@@ -34,16 +34,6 @@ export default class SignIn extends Vue {}
 </script>
 
 <style scoped>
-.decorative-image__wrapper {
-  width: 100%;
-}
-
-.decorative-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .register-button {
   margin-top: var(--spacing-lg);
 }

@@ -3,7 +3,7 @@
     class="hamburger hamburger--spring"
     type="button"
     :class="{ 'is-active': isActive }"
-    @click="didClick()"
+    @click="$emit('click')"
   >
     <span class="hamburger-box">
       <span class="hamburger-inner"></span>
@@ -18,9 +18,5 @@ import "@/assets/css/hamburgers.css";
 @Component
 export default class HamburgerButton extends Vue {
   @Prop({ required: true }) isActive!: boolean;
-
-  didClick() {
-    this.$emit("click");
-  }
 }
 </script>

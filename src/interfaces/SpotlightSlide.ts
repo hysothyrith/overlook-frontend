@@ -5,4 +5,5 @@ interface SpotlightSlide {
   caption: string;
   title: string;
   description: string;
+  hotelId: number;
 }

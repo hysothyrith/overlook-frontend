@@ -1,8 +1,11 @@
 <template>
   <div class="ovl-input-container">
-    <div class="ovl-input__title caption">{{ title }}</div>
+    <div class="ovl-input__title caption">
+      <label :for="id">{{ title }}</label>
+    </div>
     <select
       v-if="type === 'select'"
+      :id="id"
       class="ovl-input"
       @input="$emit('input', $event.target.value)"
     >
@@ -11,6 +14,7 @@
     <input
       v-if="type !== 'select'"
       class="ovl-input"
+      :id="id"
       v-bind="{ ...$props, ...$attrs }"
       @input="$emit('input', $event.target.value)"
     />
@@ -24,6 +28,10 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class OvlInput extends Vue {
   @Prop({ required: true }) private title!: string;
   @Prop({ required: true }) private type!: string;
+
+  get id() {
+    return this.title.replace(/\s+/g, "-").toLowerCase();
+  }
 }
 </script>
 

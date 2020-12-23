@@ -22,13 +22,6 @@
         class="navbar__item action"
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
-        to="/book"
-        >Book</router-link
-      >
-      <router-link
-        class="navbar__item action"
-        :class="{ 'navbar__item--is-active': isActive }"
-        @click="navItemDidClick"
         to="/about-us"
         >About us</router-link
       >
@@ -36,15 +29,22 @@
         class="navbar__item action"
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
-        to="/contact-us"
-        >Contact us</router-link
+        to="/hotels"
+        >Hotels</router-link
       >
       <router-link
         class="navbar__item action"
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
-        to="/privacy"
-        >Privacy</router-link
+        to="/book"
+        >Book</router-link
+      >
+      <router-link
+        class="navbar__item action"
+        :class="{ 'navbar__item--is-active': isActive }"
+        @click="navItemDidClick"
+        to="/contact-us"
+        >Contact us</router-link
       >
       <router-link
         class="navbar__item navbar__action"

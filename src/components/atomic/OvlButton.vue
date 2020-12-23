@@ -1,5 +1,9 @@
 <template>
-  <button class="ovl-button  solid" :class="{ outline: type === 'outline' }">
+  <button
+    class="ovl-button  solid"
+    :class="{ outline: type === 'outline' }"
+    @click="$emit('click')"
+  >
     <slot></slot>
   </button>
 </template>

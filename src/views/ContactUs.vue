@@ -1,5 +1,15 @@
 <template>
-  <div>
-    This is the Contact us Page.
+  <div class="ovl-grid">
+    <div class="decorative-image__wrapper">
+      <img
+        class="decorative-image"
+        src="https://source.unsplash.com/random"
+        alt="Test"
+      />
+    </div>
+    <div class="ovl-grid__body">
+      <div class="caption caption--pretitle">Get in Touch</div>
+      <h2 class="heading-1">Contact Us</h2>
+    </div>
   </div>
 </template>

@@ -22,9 +22,7 @@ export default class OvlGallery extends Vue {
 </script>
 
 <style scoped>
-/* TODO: Refactor to Mobile First*/
 .gallery {
-  background-color: aliceblue;
   display: grid;
 }
 

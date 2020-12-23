@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "checkInDate": "2020-12-23",
+    "checkOutDate": "2020-12-25",
+    "hotel": {
+      "id": 1,
+      "name": "Overlook One",
+      "streetAddress": "abc",
+      "city": "Phnom Penh",
+      "country": "Cambodia",
+      "zip": 123
+    },
+    "roomType": {
+      "name": "King's Court",
+      "images": [
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Image"
+        },
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Image"
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "checkInDate": "2020-12-23",
+    "checkOutDate": "2020-12-25",
+    "hotel": {
+      "id": 2,
+      "name": "The Grand Overlook",
+      "streetAddress": "abc",
+      "city": "Siem Reap",
+      "country": "Cambodia",
+      "zip": 123
+    },
+    "roomType": {
+      "name": "Queen's Court",
+      "images": [
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Image"
+        },
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Image"
+        }
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "checkInDate": "2020-11-13",
+    "checkOutDate": "2020-11-15",
+    "hotel": {
+      "id": 3,
+      "name": "The Royal Overlook",
+      "streetAddress": "abc",
+      "city": "Sihanoukville",
+      "country": "Cambodia",
+      "zip": 123
+    },
+    "roomType": {
+      "name": "Royal Double",
+      "images": [
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Image"
+        },
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Image"
+        }
+      ]
+    }
+  }
+]

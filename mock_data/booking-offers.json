@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "roomType": {
+      "name": "King's Court",
+      "description": "Lasted my coming uneasy marked so should. Gravity letters it amongst herself dearest an windows by.",
+      "images": [
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Picture"
+        },
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Picture"
+        }
+      ],
+      "price": 134
+    },
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "roomType": {
+      "name": "Queen's Court",
+      "description": "Lasted my coming uneasy marked so should. Gravity letters it amongst herself dearest an windows by.",
+      "images": [
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Picture"
+        },
+        {
+          "src": "https://source.unsplash.com/random",
+          "alt": "Random Unsplash Picture"
+        }
+      ],
+      "price": 148
+    },
+    "quantity": 2
+  }
+]
