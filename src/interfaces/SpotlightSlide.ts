@@ -1,7 +1,7 @@
 interface SpotlightSlide {
   id: number;
-  imgSrc: string;
-  imgAlt: string;
+  imageSrc: string;
+  imageAlt: string;
   caption: string;
   title: string;
   description: string;

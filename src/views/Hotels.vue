@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="hotel-info__container" id="1">
+    <div class="hotel-info__container" id="overlook-one">
       <div class="caption caption--pretitle">In the Heart of Phnom Penh</div>
       <h2 class="heading-1">Overlook One</h2>
       <div class="body">
@@ -11,7 +11,7 @@
         unobstructed views of the fabled Mekong River.
       </div>
     </div>
-    <div class="hotel-info__container" id="2">
+    <div class="hotel-info__container" id="the-grand-overlook">
       <div class="caption caption--pretitle">In the City of Siem Reap</div>
       <h2 class="heading-1">The Grand Overlook</h2>
       <div class="body">
@@ -32,7 +32,7 @@
         to Cambodia.
       </div>
     </div>
-    <div class="hotel-info__container" id="3">
+    <div class="hotel-info__container" id="overlook-resort">
       <div class="caption caption--pretitle">In Seaside Town of Kep</div>
       <h2 class="heading-1">Overlook Resort</h2>
       <div class="body">
@@ -49,7 +49,7 @@
         Cambodia.
       </div>
     </div>
-    <div class="hotel-info__container" id="3">
+    <div class="hotel-info__container" id="the-royal-overlook">
       <div class="caption caption--pretitle">In Cambodia's Kampot</div>
       <h2 class="heading-1">The Royal Overlook</h2>
       <div class="body">

@@ -2,6 +2,7 @@
   <div id="app">
     <ovl-navbar class="navbar" />
     <router-view class="router-view" />
+    <notifications group="ovl-notification-center" position="top center" />
     <!-- <ovl-footer class="footer" /> -->
   </div>
 </template>
@@ -14,19 +15,17 @@ import OvlFooter from "@/components/OvlFooter.vue";
 @Component({
   components: {
     OvlNavbar,
-    OvlFooter,
-  },
+    OvlFooter
+  }
 })
 export default class Home extends Vue {}
 </script>
 
 <style>
 #app {
-  font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0 auto;
-  color: var(--color-dark);
 }
 
 .navbar {

@@ -1,6 +1,4 @@
-<template>
-  
-</template>
+<template> </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -9,6 +7,4 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class ClassName extends Vue {}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

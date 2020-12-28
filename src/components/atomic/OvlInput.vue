@@ -7,6 +7,8 @@
       v-if="type === 'select'"
       :id="id"
       class="ovl-input"
+      v-bind="{ ...$props, ...$attrs }"
+      @change="$emit('change')"
       @input="$emit('input', $event.target.value)"
     >
       <slot></slot>
@@ -16,6 +18,7 @@
       class="ovl-input"
       :id="id"
       v-bind="{ ...$props, ...$attrs }"
+      @change="$emit('change')"
       @input="$emit('input', $event.target.value)"
     />
   </div>

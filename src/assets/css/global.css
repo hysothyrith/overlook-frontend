@@ -21,6 +21,11 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,700;1,400;1,600&display=swap");
 
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--color-dark);
+}
+
 .title {
   font-family: "Lora";
   font-size: 72px;
@@ -28,14 +33,14 @@
 
 .heading-1 {
   font-family: "Lora";
-  font-size: 52px;
+  font-size: 46px;
   margin-top: 0;
   margin-bottom: var(--spacing-md);
 }
 
 .heading-2 {
   font-family: "Lora";
-  font-size: 42px;
+  font-size: 38px;
 }
 
 .heading-3 {
@@ -43,7 +48,7 @@
   font-size: 20px;
 }
 
-.body {
+.body, p {
   font-size: 16px;
   line-height: 160%;
 }
@@ -107,6 +112,10 @@
 
 /** Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  .heading-1 {
+    font-size: 52px;
+  }
+
   .ovl-grid {
     grid-template-columns: 1.2fr 0.8fr;
   }

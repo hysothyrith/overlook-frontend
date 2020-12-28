@@ -19,7 +19,12 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class OvlCollapsibleSection extends Vue {
   @Prop({ required: true }) private title!: string;
-  @Prop({ default: false }) private isCollapsed!: boolean;
+  @Prop({ default: false }) private collapseByDefault!: boolean;
+  isCollapsed = false;
+
+  created() {
+    if (this.collapseByDefault) this.isCollapsed = true;
+  }
 
   sectionHeaderDidClick() {
     this.isCollapsed = !this.isCollapsed;

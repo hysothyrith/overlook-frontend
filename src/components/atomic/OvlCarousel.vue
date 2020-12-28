@@ -9,7 +9,7 @@
         :key="image.id"
         class="carousel__indicator"
         :class="{
-          'carousel__indicator--is-active': image.id === currentIndex + 1,
+          'carousel__indicator--is-active': image.id === currentIndex + 1
         }"
         @click="carouselIndicatorDidClick(image.id)"
       ></div>

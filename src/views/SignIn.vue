@@ -10,9 +10,15 @@
     <div class="ovl-grid__body">
       <div class="caption caption--pretitle">Welcome Back</div>
       <h2 class="heading-1">Sign In</h2>
-      <form action="" method="POST">
-        <ovl-input type="email" title="Email" placeholder="john@smith.com" />
-        <ovl-input type="password" title="Password" />
+      <form @submit.prevent="signIn(form)">
+        <ovl-input
+          type="email"
+          title="Email"
+          v-model="form.email"
+          placeholder="john@smith.com"
+        />
+        <ovl-input type="password" v-model="form.password" title="Password" />
+        <div>New to Overlook? <a href="">Join</a></div>
         <ovl-button class="register-button">Sign In</ovl-button>
       </form>
     </div>
@@ -20,17 +26,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import OvlInput from "@/components/atomic/OvlInput.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
+import { Action } from "vuex-class";
 
 @Component({
   components: {
     OvlInput,
-    OvlButton,
-  },
+    OvlButton
+  }
 })
-export default class SignIn extends Vue {}
+export default class SignIn extends Vue {
+  @Action("auth/signIn")
+  signIn!: (form: SignInCredential) => void;
+
+  form: SignInCredential = {
+    email: "elyse07@example.org",
+    password: "password"
+  };
+}
 </script>
 
 <style scoped>

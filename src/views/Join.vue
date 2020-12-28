@@ -10,26 +10,38 @@
     <div class="ovl-grid__body">
       <div class="caption caption--pretitle">Join Overlook</div>
       <h2 class="heading-1">Register</h2>
-      <form @submit="registrationFormWillSubmit">
+      <form @submit.prevent="register(form)">
         <ovl-input
           type="text"
           title="First Name"
           placeholder="John"
-          name="first-name"
+          v-model="form.firstName"
         />
         <ovl-input
           type="text"
           title="Last Name"
           placeholder="Smith"
           name="last-name"
+          v-model="form.lastName"
         />
-        <ovl-input type="email" title="Email" name="email" />
-        <ovl-input type="password" title="Password" name="password" />
+        <ovl-input
+          type="email"
+          title="Email"
+          name="email"
+          v-model="form.email"
+        />
         <ovl-input
           type="password"
-          title="Re-enter Password"
-          name="password-confirmation"
+          title="Password"
+          name="password"
+          v-model="form.password"
         />
+        <!-- <ovl-input
+          type="password"
+          title="Re-enter Password"
+          v-model="form.passwordConfirmation"
+        /> -->
+        <div>Already part of Overlook? <a href="">Sign In</a></div>
         <ovl-button class="register-button">Register</ovl-button>
       </form>
     </div>
@@ -37,21 +49,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import axios from "axios";
+import { Component, Vue } from "vue-property-decorator";
 import OvlInput from "@/components/atomic/OvlInput.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
+import { Action } from "vuex-class";
+import "@/interfaces/Registration.ts";
 
 @Component({
   components: {
     OvlInput,
-    OvlButton,
-  },
+    OvlButton
+  }
 })
 export default class Join extends Vue {
-  registrationFormWillSubmit() {
-    console.log();
-  }
+  @Action("auth/register") register!: (form: Registration) => void;
+  form = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: ""
+  };
 }
 </script>
 <style scoped>

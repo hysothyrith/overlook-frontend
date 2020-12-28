@@ -16,6 +16,7 @@
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
         to="/"
+        exact
         >Home</router-link
       >
       <router-link
@@ -46,35 +47,56 @@
         to="/contact-us"
         >Contact us</router-link
       >
-      <router-link
-        class="navbar__item navbar__action"
-        :class="{ 'navbar__item--is-active': isActive }"
-        @click="navItemDidClick"
-        to="/join"
-      >
-        <ovl-button>Join</ovl-button>
-      </router-link>
-      <router-link
-        class="navbar__item navbar__action"
-        :class="{ 'navbar__item--is-active': isActive }"
-        @click="navItemDidClick"
-        to="/sign-in"
-      >
-        <ovl-button type="outline">Sign In</ovl-button>
-      </router-link>
+
+      <template v-if="authenticated">
+        <router-link
+          class="navbar__item navbar__action"
+          @click="navItemDidClick"
+          to="/bookings"
+        >
+          <ovl-button>Bookings</ovl-button>
+        </router-link>
+        <span class="navbar__item navbar__action" @click="signOut">
+          <ovl-button type="outline">Sign Out</ovl-button>
+        </span>
+      </template>
+      <template v-else>
+        <router-link
+          class="navbar__item navbar__action"
+          :class="{ 'navbar__item--is-active': isActive }"
+          @click="navItemDidClick"
+          to="/join"
+        >
+          <ovl-button>Join</ovl-button>
+        </router-link>
+        <router-link
+          class="navbar__item navbar__action"
+          :class="{ 'navbar__item--is-active': isActive }"
+          @click="navItemDidClick"
+          to="/sign-in"
+        >
+          <ovl-button type="outline">Sign In</ovl-button>
+        </router-link>
+      </template>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import OvlButton from "@/components/atomic/OvlButton.vue";
 import HamburgerButton from "@/components/atomic/HamburgerButton.vue";
+import { Getter, Action } from "vuex-class";
 
 @Component({
-  components: { OvlButton, HamburgerButton },
+  components: {
+    OvlButton,
+    HamburgerButton
+  }
 })
 export default class OvlNavbar extends Vue {
+  @Getter("auth/authenticated") authenticated!: () => boolean;
+  @Action("auth/signOut") signOut!: () => void;
   isActive = false;
 
   hamburgerButtonDidClick() {
@@ -129,7 +151,7 @@ export default class OvlNavbar extends Vue {
   visibility: hidden;
 }
 
-.navbar__item.router-link-exact-active {
+.navbar__item.router-link-active {
   color: var(--color-highlight);
 }
 

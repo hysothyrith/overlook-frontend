@@ -28,15 +28,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 
 import OvlCarousel from "@/components/atomic/OvlCarousel.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
-import VueRouter from "vue-router";
 
 @Component({
-  components: { OvlCarousel, OvlButton },
+  components: { OvlCarousel, OvlButton }
 })
 export default class Spotlight extends Vue {
   spotlights: SpotlightSlide[] = [];
@@ -57,11 +56,15 @@ export default class Spotlight extends Vue {
   }
 
   get spotlightDescription() {
-    return this.spotlights[this.currentIndex].description;
+    return this.spotlights[this.currentIndex].description.replace(/(<([^>]+)>)/gi, "");
   }
 
   get hotelId() {
     return this.spotlights[this.currentIndex].hotelId;
+  }
+
+  get snakeCaseHotelName() {
+    return this.spotlights[this.currentIndex].title.replace(/\s+/g, "-").toLowerCase();
   }
 
   carouselDidChange(index: number) {
@@ -70,19 +73,19 @@ export default class Spotlight extends Vue {
 
   fetchData() {
     axios
-      .get("https://5fe1977804f0780017de9e55.mockapi.io/api/spotlights")
-      .then((response) => {
-        this.spotlights = response.data;
-        this.carouselImages = this.spotlights.map((spotlight) => {
+      .get("/spotlights")
+      .then(response => {
+        this.spotlights = response.data.data;
+        this.carouselImages = this.spotlights.map(spotlight => {
           return {
             id: spotlight.id,
-            src: spotlight.imgSrc,
-            alt: spotlight.imgAlt,
+            src: spotlight.imageSrc,
+            alt: spotlight.imageAlt
           };
         });
         this.isReady = true;
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
       });
   }
@@ -90,14 +93,14 @@ export default class Spotlight extends Vue {
   bookButtonDidClick() {
     this.$router.push({
       path: "book",
-      query: { hotelId: this.hotelId.toString() },
+      query: { hotel: this.hotelId.toString() }
     });
   }
 
   aboutButtonDidClick() {
     this.$router.push({
       name: "Hotels",
-      hash: `#${this.hotelId}`,
+      hash: `#${this.snakeCaseHotelName}`
     });
   }
 }

@@ -1,9 +1,10 @@
 <template>
   <div class="bookings">
-    <h2 class="heading-1">Your Bookings</h2>
+    <div class="caption caption--pretitle">Welcome Home</div>
+    <h2 class="heading-1">Hi, {{ user.firstName }}</h2>
     <ovl-collapsible-section title="Upcoming">
       <div
-        v-for="booking in bookings"
+        v-for="booking in upcomingBookings"
         :key="booking.id"
         class="booking__container"
       >
@@ -27,16 +28,44 @@
       </div>
     </ovl-collapsible-section>
 
-    <ovl-collapsible-section title="Past Stays" :isCollapsed="true" />
+    <ovl-collapsible-section title="Past Stays" :collapseByDefault="true">
+      <div
+        v-for="booking in pastBookings"
+        :key="booking.id"
+        class="booking__container"
+        @click="delSoon"
+      >
+        <div class="booking__image-wrapper">
+          <img
+            :src="booking.imageSrc"
+            :alt="booking.imageAlt"
+            class="booking__image"
+          />
+        </div>
+        <div class="booking__body">
+          <div class="booking__hotel caption">{{ booking.hotelName }}</div>
+          <h4 class="booking__room-type heading-3">
+            {{ booking.roomTypeName }}
+          </h4>
+          <div class="booking__date">
+            {{ formatDate(booking.fromDate) }} to
+            {{ formatDate(booking.toDate) }}
+          </div>
+        </div>
+      </div>
+    </ovl-collapsible-section>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import OvlCollapsibleSection from "@/components/atomic/OvlCollapsibleSection.vue";
+import { Getter } from "vuex-class";
+import axios from "axios";
 
 @Component({ components: { OvlCollapsibleSection } })
 export default class Bookings extends Vue {
+  @Getter("auth/user") user!: () => User;
   bookings = [
     {
       id: 1,
@@ -46,7 +75,7 @@ export default class Bookings extends Vue {
       toDate: "2020-12-25",
       status: "confirmed",
       imageSrc: "https://source.unsplash.com/random",
-      imageAlt: "Random Unsplash image",
+      imageAlt: "Random Unsplash image"
     },
     {
       id: 2,
@@ -56,7 +85,7 @@ export default class Bookings extends Vue {
       toDate: "2020-12-25",
       status: "confirmed",
       imageSrc: "https://source.unsplash.com/random",
-      imageAlt: "Random Unsplash image",
+      imageAlt: "Random Unsplash image"
     },
     {
       id: 3,
@@ -66,8 +95,8 @@ export default class Bookings extends Vue {
       toDate: "2020-11-15",
       status: "completed",
       imageSrc: "https://source.unsplash.com/random",
-      imageAlt: "Random Unsplash image",
-    },
+      imageAlt: "Random Unsplash image"
+    }
   ];
 
   get upcomingBookings() {
@@ -83,26 +112,62 @@ export default class Bookings extends Vue {
       weekday: "short",
       year: "numeric",
       month: "short",
-      day: "numeric",
+      day: "numeric"
     });
+  }
+
+  delSoon() {
+    Vue.notify({
+      group: "ovl-notification-center",
+      title: "Hi there, mate",
+      text: "Welcome to the Overlook Hotels"
+    });
+  }
+
+  created() {
+    this.fetchBookings();
+  }
+
+  fetchBookings() {
+    console.log("fetch");
   }
 }
 </script>
 
 <style scoped>
+.bookings {
+  padding: var(--spacing-md);
+}
+
 .booking__container {
-  border-top: 1px solid var(--color-dark-l2);
+  border-bottom: 1px solid var(--color-dark-l2);
   cursor: pointer;
+  display: flex;
+  max-height: 200px;
+  padding: var(--spacing-md) 0;
 }
 
 .booking__image-wrapper {
-  width: 50px;
-  height: 50px;
+  /* width: 50px; */
+  /* height: 50px; */
+  width: 180px;
+  height: 180px;
 }
 
 .booking__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.booking__room-type {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.booking__body {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
