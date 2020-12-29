@@ -48,7 +48,8 @@ body {
   font-size: 20px;
 }
 
-.body, p {
+.body,
+p {
   font-size: 16px;
   line-height: 160%;
 }
@@ -96,11 +97,13 @@ body {
   padding: var(--spacing-md);
 }
 
-.decorative-image__wrapper {
+.decorative-image__wrapper,
+.ovl-image-wrapper {
   width: 100%;
 }
 
-.decorative-image {
+.decorative-image,
+.ovl-image {
   width: 100%;
   height: 100%;
   object-fit: cover;

@@ -11,3 +11,5 @@ import Spotlight from "@/components/Spotlight.vue";
 @Component({ components: { Spotlight } })
 export default class Home extends Vue {}
 </script>
+
+<style scoped></style>

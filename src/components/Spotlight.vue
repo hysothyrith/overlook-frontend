@@ -56,7 +56,10 @@ export default class Spotlight extends Vue {
   }
 
   get spotlightDescription() {
-    return this.spotlights[this.currentIndex].description.replace(/(<([^>]+)>)/gi, "");
+    return this.spotlights[this.currentIndex].description.replace(
+      /(<([^>]+)>)/gi,
+      ""
+    );
   }
 
   get hotelId() {
@@ -64,7 +67,9 @@ export default class Spotlight extends Vue {
   }
 
   get snakeCaseHotelName() {
-    return this.spotlights[this.currentIndex].title.replace(/\s+/g, "-").toLowerCase();
+    return this.spotlights[this.currentIndex].title
+      .replace(/\s+/g, "-")
+      .toLowerCase();
   }
 
   carouselDidChange(index: number) {
