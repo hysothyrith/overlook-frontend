@@ -16,21 +16,21 @@
       >
         <div class="booking__image-wrapper">
           <img
-            :src="booking.roomType[0].images[0].imageSrc"
-            :alt="booking.roomType[0].images[0].imageAlt"
+            :src="booking.hotel.media[0].imageSrc"
+            :alt="booking.hotel.media[0].imageAlt"
             class="booking__image"
           />
         </div>
         <div class="booking__body">
           <div class="booking__hotel type--preheader">
-            {{ booking.hotel.title }}
+            {{ booking.hotel.city }}
           </div>
           <h4 class="booking__room-type type--heading-3">
-            {{ booking.roomType[0].name }}
+            {{ booking.hotel.name }}
           </h4>
           <div class="booking__date">
-            {{ formatDate(booking.checkInDate) }} to
-            {{ formatDate(booking.checkOutDate) }}
+            {{ formatDate(booking.check_in_date) }} to
+            {{ formatDate(booking.check_out_date) }}
           </div>
         </div>
       </div>
@@ -49,21 +49,21 @@
       >
         <div class="booking__image-wrapper">
           <img
-            :src="booking.roomType[0].images[0].imageSrc"
-            :alt="booking.roomType[0].images[0].imageAlt"
+            :src="booking.hotel.media[0].imageSrc"
+            :alt="booking.hotel.media[0].imageAlt"
             class="booking__image"
           />
         </div>
         <div class="booking__body">
           <div class="booking__hotel type--preheader">
-            {{ booking.hotel.title }}
+            {{ booking.hotel.city }}
           </div>
           <h4 class="booking__room-type type--heading-3">
-            {{ booking.roomType[0].name }}
+            {{ booking.hotel.name }}
           </h4>
           <div class="booking__date">
-            {{ formatDate(booking.checkInDate) }} to
-            {{ formatDate(booking.checkOutDate) }}
+            {{ formatDate(booking.check_in_date) }} to
+            {{ formatDate(booking.check_out_date) }}
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@ export default class Bookings extends Vue {
   get upcomingBookings() {
     return this.bookings.filter(booking => {
       const today = new Date();
-      const bookingDate = new Date(booking.checkOutDate);
+      const bookingDate = new Date(booking.check_out_date);
       return bookingDate > today;
     });
   }
@@ -94,7 +94,7 @@ export default class Bookings extends Vue {
   get pastBookings() {
     return this.bookings.filter(booking => {
       const today = new Date();
-      const bookingDate = new Date(booking.checkOutDate);
+      const bookingDate = new Date(booking.check_out_date);
       return bookingDate < today;
     });
   }
@@ -121,9 +121,8 @@ export default class Bookings extends Vue {
   }
 
   fetchBookings() {
-    // console.log("fetch");
     axios.get("/bookings").then(response => {
-      // console.log(response.data.data);
+      console.log(response.data.data);
       this.bookings = response.data.data;
       this.isReady = true;
     });

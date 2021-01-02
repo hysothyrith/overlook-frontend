@@ -1,7 +1,7 @@
 interface Booking {
   id: number;
-  checkInDate: Date;
-  checkOutDate: Date;
+  check_in_date: string;
+  check_out_date: string;
   hotel: Hotel;
   roomType: RoomType;
 }

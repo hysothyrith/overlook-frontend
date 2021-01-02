@@ -1,6 +1,9 @@
 <template>
   <div class="booking-form" v-if="isReady">
-    <form class="booking-form__body" @submit.prevent="formWillSubmit">
+    <form
+      class="booking-form__body"
+      @submit.prevent="$emit('willSubmit', form)"
+    >
       <div class="type--preheader">Hospitality Awaits</div>
       <h2 class="type--heading-1">Book a Stay</h2>
       <ovl-input
@@ -43,23 +46,6 @@
         <ovl-button>Search</ovl-button>
       </div>
     </form>
-
-    <div v-if="offersAreFetched" class="booking-offer__container">
-      <div
-        v-for="offer in offers"
-        :key="offer.id"
-        class="booking-offer"
-        @click="offerDidClick"
-      >
-        <h4 class="type--heading-3 booking-offer__title">{{ offer.name }}</h4>
-        <div class="booking-offer__description">
-          {{ offer.description }}
-        </div>
-        <div class="booking-offer__price">
-          ${{ offer.price }} <i>per night</i>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -78,15 +64,13 @@ import OvlButton from "@/components/atomic/OvlButton.vue";
 export default class BookingSearchForm extends Vue {
   hotels = [];
   isReady = false;
-  form = {
+  form: BookingForm = {
     hotel: this.$route.query.hotel || "1",
     persons: this.$route.query.persons || "1",
     checkInDate: this.$route.query.checkInDate || "",
     checkOutDate: this.$route.query.checkOutDate || ""
   };
   today = new Date().toISOString().slice(0, 10);
-  offers = [];
-  offersAreFetched = false;
 
   created() {
     this.fetchData();
@@ -134,56 +118,11 @@ export default class BookingSearchForm extends Vue {
       query: { ...this.$route.query, ...queryParam }
     });
   }
-
-  async formWillSubmit() {
-    this.fetchOffers();
-  }
-
-  fetchOffers() {
-    // console.log(this.form);
-    // console.log(this.$route.query);
-    axios
-      .get("/booking-offers", {
-        params: {
-          ...this.form,
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          hotel_id: this.form.hotel,
-          people: this.form.persons
-        }
-      })
-      .then(response => {
-        this.offers = response.data.data;
-        this.offersAreFetched = true;
-        // console.log(response.data.data);
-      });
-  }
-
-  offerDidClick() {
-    console.log("offerDidClick");
-  }
 }
 </script>
 
 <style scoped>
 .booking__action-container {
   margin-top: var(--spacing-lg);
-}
-
-.booking-offer__container {
-  margin-top: var(--spacing-lg);
-}
-
-.booking-offer {
-  border-top: 1px solid var(--color-dark-l2);
-  cursor: pointer;
-}
-
-.booking-offer__description {
-  margin: var(--spacing-md) 0;
-}
-
-.booking-offer__price {
-  text-align: right;
-  margin-bottom: var(--spacing-md);
 }
 </style>
