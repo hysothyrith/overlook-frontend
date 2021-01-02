@@ -9,12 +9,11 @@
     <div
       class="navbar__item-container"
       :class="{ 'navbar__item-container--is-active': isActive }"
-      @click="navItemDidClick"
     >
       <router-link
         class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
-        @click="navItemDidClick"
+        @click.native="navItemDidClick"
         to="/"
         exact
         >Home</router-link
@@ -22,43 +21,67 @@
       <router-link
         class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
-        @click="navItemDidClick"
+        @click.native="navItemDidClick"
         to="/about-us"
         >About us</router-link
       >
       <router-link
         class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
-        @click="navItemDidClick"
+        @click.native="navItemDidClick"
         to="/hotels"
         >Hotels</router-link
       >
       <router-link
         class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
-        @click="navItemDidClick"
+        @click.native="navItemDidClick"
         to="/book"
         >Book</router-link
       >
       <router-link
         class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
-        @click="navItemDidClick"
+        @click.native="navItemDidClick"
         to="/contact-us"
         >Contact us</router-link
       >
 
       <template v-if="authenticated">
-        <router-link
-          class="navbar__item navbar__action"
-          @click="navItemDidClick"
-          to="/bookings"
+        <div
+          class="navbar__item type--action dropdown-navbar-item"
+          :class="{ 'navbar__item--is-active': isActive }"
+          @click="accountDidClick"
         >
-          <ovl-button>Bookings</ovl-button>
-        </router-link>
-        <span class="navbar__item navbar__action" @click="signOut">
-          <ovl-button type="outline">Sign Out</ovl-button>
-        </span>
+          <div class="dropdown-navbar-item__title">
+            <span>Account</span>
+            <i class="gg-chevron-down"></i>
+          </div>
+          <div
+            class="dropdown-navbar-item__container"
+            :class="{
+              'dropdown-navbar-item__container--is-hidden': !accountIsExpanded
+            }"
+          >
+            <router-link
+              class="navbar__dropdown-item"
+              @click="navItemDidClick"
+              to="/bookings"
+            >
+              Bookings
+            </router-link>
+            <router-link
+              class="navbar__dropdown-item"
+              @click="navItemDidClick"
+              to="/account"
+            >
+              Account information
+            </router-link>
+            <span class="navbar__dropdown-item" @click="signOut">
+              Sign out
+            </span>
+          </div>
+        </div>
       </template>
       <template v-else>
         <router-link
@@ -98,6 +121,7 @@ export default class OvlNavbar extends Vue {
   @Getter("auth/authenticated") authenticated!: () => boolean;
   @Action("auth/signOut") signOut!: () => void;
   isActive = false;
+  accountIsExpanded = false;
 
   hamburgerButtonDidClick() {
     this.isActive = !this.isActive;
@@ -105,6 +129,11 @@ export default class OvlNavbar extends Vue {
 
   navItemDidClick() {
     this.isActive = false;
+    this.accountIsExpanded = false;
+  }
+
+  accountDidClick() {
+    this.accountIsExpanded = !this.accountIsExpanded;
   }
 }
 </script>
@@ -151,7 +180,8 @@ export default class OvlNavbar extends Vue {
   visibility: hidden;
 }
 
-.navbar__item.router-link-active {
+.navbar__item.router-link-active,
+.navbar__dropdown-item.router-link-active {
   color: var(--color-highlight);
 }
 
@@ -163,6 +193,28 @@ export default class OvlNavbar extends Vue {
 
 .navbar__item-container--is-active {
   height: 100vh;
+}
+
+.dropdown-navbar-item__title {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+.dropdown-navbar-item__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.dropdown-navbar-item__container--is-hidden {
+  display: none;
+}
+
+.navbar__dropdown-item {
+  color: var(--color-dark);
+  cursor: pointer;
+  margin-top: var(--spacing-sm);
 }
 
 /** Small devices (landscape phones, 576px and up) */
@@ -203,6 +255,20 @@ export default class OvlNavbar extends Vue {
 
   .navbar__action {
     margin: 0 var(--spacing-xs);
+  }
+
+  .dropdown-navbar-item__title {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .dropdown-navbar-item__container {
+    position: absolute;
+    align-items: flex-start;
+  }
+
+  .navbar__dropdown-item {
+    margin-top: var(--spacing-md);
   }
 }
 

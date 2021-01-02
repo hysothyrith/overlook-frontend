@@ -42,8 +42,8 @@ export default class SignIn extends Vue {
   signIn!: (form: SignInCredential) => void;
 
   form: SignInCredential = {
-    email: "elyse07@example.org",
-    password: "password"
+    email: "",
+    password: ""
   };
 }
 </script>

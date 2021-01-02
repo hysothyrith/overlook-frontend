@@ -54,7 +54,6 @@ export default class OvlCollapsibleSection extends Vue {
 
 .gg-chevron-right {
   margin-top: 4px;
-  margin-left: var(--spacing-sm);
   box-sizing: border-box;
   position: relative;
   display: block;
