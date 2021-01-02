@@ -7,8 +7,8 @@
       @did-change="carouselDidChange"
     />
     <div v-if="isReady" class="ovl-grid__body spotlight__body">
-      <div class="caption caption--pretitle">{{ spotlightCaption }}</div>
-      <h2 class="heading-1">{{ spotlightTitle }}</h2>
+      <div class="type--preheader">{{ spotlightCaption }}</div>
+      <h2 class="type--heading-1">{{ spotlightTitle }}</h2>
       <div class="spotlight__description body">
         {{ spotlightDescription }}
       </div>
@@ -105,7 +105,7 @@ export default class Spotlight extends Vue {
   aboutButtonDidClick() {
     this.$router.push({
       name: "Hotels",
-      hash: `#${this.snakeCaseHotelName}`
+      hash: `#${this.hotelId}`
     });
   }
 }

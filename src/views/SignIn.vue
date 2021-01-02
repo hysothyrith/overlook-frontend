@@ -1,15 +1,15 @@
 <template>
   <div class="ovl-grid">
-    <div class="decorative-image__wrapper">
+    <div class="ovl-image-wrapper--full-width">
       <img
-        class="decorative-image"
+        class="ovl-image--cover"
         src="https://source.unsplash.com/random"
         alt="Test"
       />
     </div>
     <div class="ovl-grid__body">
-      <div class="caption caption--pretitle">Welcome Back</div>
-      <h2 class="heading-1">Sign In</h2>
+      <div class="type--preheader">Welcome Back</div>
+      <h2 class="type--heading-1">Sign In</h2>
       <form @submit.prevent="signIn(form)">
         <ovl-input
           type="email"

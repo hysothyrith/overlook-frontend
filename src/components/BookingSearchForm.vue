@@ -1,8 +1,8 @@
 <template>
   <div class="booking-form" v-if="isReady">
     <form class="booking-form__body" @submit.prevent="formWillSubmit">
-      <div class="caption caption--pretitle">Hospitality Awaits</div>
-      <h2 class="heading-1">Book a Stay</h2>
+      <div class="type--preheader">Hospitality Awaits</div>
+      <h2 class="type--heading-1">Book a Stay</h2>
       <ovl-input
         type="select"
         title="Hotel"
@@ -51,7 +51,7 @@
         class="booking-offer"
         @click="offerDidClick"
       >
-        <h4 class="heading-3 booking-offer__title">{{ offer.name }}</h4>
+        <h4 class="type--heading-3 booking-offer__title">{{ offer.name }}</h4>
         <div class="booking-offer__description">
           {{ offer.description }}
         </div>

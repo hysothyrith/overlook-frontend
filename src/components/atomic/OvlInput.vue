@@ -1,8 +1,6 @@
 <template>
   <div class="ovl-input-container">
-    <div class="ovl-input__title caption">
-      <label :for="id">{{ title }}</label>
-    </div>
+    <label class="type--label ovl-input__label" :for="id">{{ title }}</label>
     <select
       v-if="type === 'select'"
       :id="id"
@@ -39,11 +37,9 @@ export default class OvlInput extends Vue {
 </script>
 
 <style scoped>
-.ovl-input__title {
-  margin-left: var(--spacing-xs);
-  margin-bottom: var(--spacing-xs);
-  margin-top: var(--spacing-md);
-  font-weight: 500;
+.ovl-input__label {
+  display: block;
+  margin: var(--spacing-md) var(--spacing-xs) var(--spacing-sm);
 }
 
 .ovl-input {

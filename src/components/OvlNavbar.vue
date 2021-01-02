@@ -12,7 +12,7 @@
       @click="navItemDidClick"
     >
       <router-link
-        class="navbar__item action"
+        class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
         to="/"
@@ -20,28 +20,28 @@
         >Home</router-link
       >
       <router-link
-        class="navbar__item action"
+        class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
         to="/about-us"
         >About us</router-link
       >
       <router-link
-        class="navbar__item action"
+        class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
         to="/hotels"
         >Hotels</router-link
       >
       <router-link
-        class="navbar__item action"
+        class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
         to="/book"
         >Book</router-link
       >
       <router-link
-        class="navbar__item action"
+        class="navbar__item type--action"
         :class="{ 'navbar__item--is-active': isActive }"
         @click="navItemDidClick"
         to="/contact-us"

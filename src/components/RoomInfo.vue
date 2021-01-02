@@ -1,8 +1,8 @@
 <template>
   <div class="room-info">
-    <div class="caption caption--pretitle">The Grand Overlook</div>
-    <h2 class="heading-1">King's Court</h2>
-    <div class="body">
+    <div class="type--preheader">The Grand Overlook</div>
+    <h2 class="type--heading-1">King's Court</h2>
+    <div class="type--body">
       Lasted my coming uneasy marked so should. Gravity letters it amongst
       herself dearest an windows by.
     </div>

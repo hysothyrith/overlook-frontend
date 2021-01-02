@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4
-      class="heading-3 ovl-collapsible-section__header"
+      class="type--heading-3 ovl-collapsible-section__header"
       @click="sectionHeaderDidClick"
       onselectstart="return false"
     >

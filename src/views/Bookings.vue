@@ -1,7 +1,7 @@
 <template>
   <div class="bookings">
-    <div class="caption caption--pretitle">Welcome Home</div>
-    <h2 class="heading-1">Hi, {{ user.firstName }}</h2>
+    <div class="type--preheader">Welcome Home</div>
+    <h2 class="type--heading-1">Hi, {{ user.firstName }}</h2>
     <ovl-collapsible-section title="Upcoming" v-if="isReady">
       <div
         v-for="booking in upcomingBookings"
@@ -16,8 +16,10 @@
           />
         </div>
         <div class="booking__body">
-          <div class="booking__hotel caption">{{ booking.hotel.title }}</div>
-          <h4 class="booking__room-type heading-3">
+          <div class="booking__hotel type--preheader">
+            {{ booking.hotel.title }}
+          </div>
+          <h4 class="booking__room-type type--heading-3">
             {{ booking.roomType[0].name }}
           </h4>
           <div class="booking__date">
@@ -47,8 +49,10 @@
           />
         </div>
         <div class="booking__body">
-          <div class="booking__hotel caption">{{ booking.hotel.title }}</div>
-          <h4 class="booking__room-type heading-3">
+          <div class="booking__hotel type--preheader">
+            {{ booking.hotel.title }}
+          </div>
+          <h4 class="booking__room-type type--heading-3">
             {{ booking.roomType[0].name }}
           </h4>
           <div class="booking__date">

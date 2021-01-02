@@ -1,5 +1,5 @@
 <template>
-  <div class="ovl-footer meta" v-html="rawHtmlFooterMessage"></div>
+  <div class="ovl-footer type--meta" v-html="rawHtmlFooterMessage"></div>
 </template>
 
 <script lang="ts">

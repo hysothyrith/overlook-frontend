@@ -26,65 +26,61 @@ body {
   color: var(--color-dark);
 }
 
-.title {
+a {
+  color: var(--color-highlight);
+  text-decoration: none;
+}
+
+.type--title {
   font-family: "Lora";
   font-size: 72px;
 }
 
-.heading-1 {
+.type--heading-1 {
   font-family: "Lora";
   font-size: 46px;
   margin-top: 0;
+  margin-bottom: var(--spacing-lg);
+}
+
+.type--heading-2 {
+  font-family: "Lora";
+  font-size: 38px;
   margin-bottom: var(--spacing-md);
 }
 
-.heading-2 {
-  font-family: "Lora";
-  font-size: 38px;
-}
-
-.heading-3 {
+.type--heading-3 {
   font-family: "Lora";
   font-size: 20px;
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
-.body,
-p {
+.type--body {
   font-size: 16px;
   line-height: 160%;
 }
 
-.action {
+.type--action {
   font-size: 18px;
 }
 
-.caption {
+.type--preheader,
+.type--label {
   font-size: 14px;
   text-transform: uppercase;
 }
 
-.meta {
-  font-size: 14px;
-}
-
-.caption--pretitle {
+.type--preheader {
   color: var(--color-highlight);
 }
 
-.ovl-field {
-  color: var(--color-dark);
-  width: 100%;
-  border-radius: 0;
-  border: 1px solid var(--color-dark-l2);
-  padding: var(--spacing-sm);
-  box-sizing: border-box;
+.type--label {
+  font-weight: 500;
 }
 
-.ovl-field__title {
-  margin-left: var(--spacing-xs);
-  margin-bottom: var(--spacing-xs);
-  margin-top: var(--spacing-md);
-  font-weight: 500;
+.type--meta {
+  font-size: 14px;
 }
 
 .ovl-grid {
@@ -97,13 +93,11 @@ p {
   padding: var(--spacing-md);
 }
 
-.decorative-image__wrapper,
-.ovl-image-wrapper {
+.ovl-image-wrapper--full-width {
   width: 100%;
 }
 
-.decorative-image,
-.ovl-image {
+.ovl-image--cover {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -115,7 +109,7 @@ p {
 
 /** Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  .heading-1 {
+  .type--heading-1 {
     font-size: 52px;
   }
 
