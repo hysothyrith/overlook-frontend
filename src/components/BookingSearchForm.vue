@@ -76,22 +76,6 @@ import OvlButton from "@/components/atomic/OvlButton.vue";
   }
 })
 export default class BookingSearchForm extends Vue {
-  // bookingOffers = [];
-  // bookingOffersAreFetched = false;
-  // currentViewing = false;
-
-  // requestBookingOffers() {
-  //   axios
-  //     .get("https://5fe1977804f0780017de9e55.mockapi.io/api/booking-offers")
-  //     .then(response => {
-  //       this.bookingOffers = response.data;
-  //       this.bookingOffersAreFetched = true;
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // }
-
   hotels = [];
   isReady = false;
   form = {
@@ -156,9 +140,17 @@ export default class BookingSearchForm extends Vue {
   }
 
   fetchOffers() {
-    console.log(this.$route.query);
+    // console.log(this.form);
+    // console.log(this.$route.query);
     axios
-      .get("/booking-offers", { params: this.$route.query })
+      .get("/booking-offers", {
+        params: {
+          ...this.form,
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          hotel_id: this.form.hotel,
+          people: this.form.persons
+        }
+      })
       .then(response => {
         this.offers = response.data.data;
         this.offersAreFetched = true;

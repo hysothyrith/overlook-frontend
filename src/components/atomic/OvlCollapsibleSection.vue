@@ -5,7 +5,13 @@
       @click="sectionHeaderDidClick"
       onselectstart="return false"
     >
-      {{ title }}
+      <div class="header__wrapper">
+        {{ title }}
+        <i
+          class="gg-chevron-right"
+          :class="{ 'gg-chevron-right--is-opened': !isCollapsed }"
+        ></i>
+      </div>
     </h4>
     <div :class="{ 'ovl-collapsible-section__child--is-hidden': isCollapsed }">
       <slot></slot>
@@ -38,7 +44,43 @@ export default class OvlCollapsibleSection extends Vue {
 }
 
 .ovl-collapsible-section__child--is-hidden {
-  background-color: red;
   display: none;
+}
+
+.header__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.gg-chevron-right {
+  margin-top: 4px;
+  margin-left: var(--spacing-sm);
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 1));
+  width: 22px;
+  height: 22px;
+  border: 2px solid transparent;
+  border-radius: 100px;
+  transition-duration: 0.2s;
+  transition-property: transform;
+}
+.gg-chevron-right::after {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  transform: rotate(-45deg);
+  right: 6px;
+  top: 4px;
+}
+
+.gg-chevron-right--is-opened {
+  transform: rotate(90deg);
 }
 </style>

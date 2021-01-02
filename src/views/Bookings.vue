@@ -2,7 +2,13 @@
   <div class="bookings">
     <div class="type--preheader">Welcome Home</div>
     <h2 class="type--heading-1">Hi, {{ user.firstName }}</h2>
-    <ovl-collapsible-section title="Upcoming" v-if="isReady">
+    <div v-if="isReady && bookings.length == 0">
+      You don't have any bookings at Overlook yet.
+    </div>
+    <ovl-collapsible-section
+      title="Upcoming"
+      v-if="isReady && upcomingBookings.length > 0"
+    >
       <div
         v-for="booking in upcomingBookings"
         :key="booking.id"
@@ -32,8 +38,8 @@
 
     <ovl-collapsible-section
       title="Past Stays"
-      :collapseByDefault="true"
-      v-if="isReady"
+      :collapseByDefault="upcomingBookings.length > 0"
+      v-if="isReady && pastBookings.length > 0"
     >
       <div
         v-for="booking in pastBookings"
