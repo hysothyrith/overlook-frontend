@@ -45,7 +45,6 @@
         v-for="booking in pastBookings"
         :key="booking.id"
         class="booking__container"
-        @click="delSoon"
       >
         <div class="booking__image-wrapper">
           <img
@@ -105,14 +104,6 @@ export default class Bookings extends Vue {
       year: "numeric",
       month: "short",
       day: "numeric"
-    });
-  }
-
-  delSoon() {
-    Vue.notify({
-      group: "ovl-notification-center",
-      title: "Hi there, mate",
-      text: "Welcome to the Overlook Hotels"
     });
   }
 

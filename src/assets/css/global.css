@@ -17,6 +17,8 @@
 
   --color-light-d1: #f5f5f5;
   --color-light: #fff;
+
+  --color-negative: #f05454;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,700;1,400;1,600&display=swap");

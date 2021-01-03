@@ -12,57 +12,86 @@
           class="booking-offer"
           @click="offerDidClick($event)"
         >
-          <h4 class="type--heading-3 booking-offer__title">{{ offer.name }}</h4>
+          <h4 class="type--heading-3">{{ offer.name }}</h4>
           <div class="booking-offer__description">
             {{ stripHtml(offer.description) }}
           </div>
-          <div class="booking-offer__price">
-            ${{ offer.price }} <i>per night</i>
+          <div style="display: flex; justify-content: space-between;">
+            <div>
+              <b>Suitable for {{ offer.max }} people</b>
+            </div>
+            <div class="booking-offer__price">
+              <b>${{ offer.price }} per night</b>
+            </div>
           </div>
           <div
-            class="booking-selector__container"
-            @mouseleave="bookingSeletorsDidEndHover"
+            v-if="offer.id == focusedOfferId || quantitySelected(offer.id) > 0"
+            style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--spacing-md);"
           >
-            <i
-              v-for="n in 3"
-              :key="n"
-              @click="bookingSelectorDidClick(n, offer)"
-              @mouseover="bookingSelectorDidHover(n, offer.id)"
-              class="booking-tick-selector gg-check-o"
-              :class="[
-                {
-                  'booking-tick-selector--is-highlighted':
-                    offer.id == focusedOfferId && n <= hoveredSelectionNumber
-                },
-                {
-                  'booking-tick-selector--is-selected':
-                    n <= quantitySelected(offer.id)
-                }
-              ]"
-            ></i>
-          </div>
-          <div
-            v-if="hoveredSelectionNumber > 0 && offer.id == focusedOfferId"
-            class="type--meta"
-          >
-            Select {{ hoveredSelectionNumber }}
-            {{ hoveredSelectionNumber > 1 ? "rooms" : "room" }}
-          </div>
-          <div
-            v-if="quantitySelected(offer.id) && offer.id != focusedOfferId"
-            class="type--meta"
-          >
-            Book {{ quantitySelected(offer.id) }}
-            {{ quantitySelected(offer.id) > 1 ? "rooms" : "room" }}
+            <div
+              class="booking-selector__container"
+              @mouseleave="bookingSeletorsDidEndHover"
+            >
+              <i
+                v-for="n in numberOfSelectors(offer)"
+                :key="n"
+                @click="bookingSelectorDidClick(n, offer)"
+                @mouseover="bookingSelectorDidHover(n, offer.id)"
+                class="booking-tick-selector gg-check-o"
+                :class="[
+                  {
+                    'booking-tick-selector--is-highlighted':
+                      offer.id == hoveredOfferId && n <= hoveredSelectionNumber
+                  },
+                  {
+                    'booking-tick-selector--is-selected':
+                      n <= quantitySelected(offer.id)
+                  }
+                ]"
+              ></i>
+            </div>
+            <div
+              v-if="hoveredSelectionNumber > 0 && offer.id == hoveredOfferId"
+              class="type--meta"
+            >
+              Select {{ hoveredSelectionNumber }}
+              {{ hoveredSelectionNumber > 1 ? "rooms" : "room" }}
+            </div>
+            <div
+              v-if="quantitySelected(offer.id) && offer.id != hoveredOfferId"
+              class="type--meta"
+            >
+              {{ quantitySelected(offer.id) }}
+              {{ quantitySelected(offer.id) > 1 ? "rooms" : "room" }} selected
+            </div>
           </div>
         </div>
       </div>
-      <div v-if="totalPrice > 0">
-        <h4 class="type--heading-3">Total: ${{ totalPrice }}</h4>
-        <span> Suitable for {{ totalPeople }} people. </span>
-        <span v-if="form.persons > totalPeople">Careful not enough space</span>
-        <ovl-button @click="continueDidClick">Continue</ovl-button>
+
+      <div v-if="totalPrice > 0" class="booking-overview">
+        <div
+          style="display: flex; justify-content: space-between; align-items: center;"
+        >
+          <h4 class="type--heading-3">Total: ${{ totalPrice }}</h4>
+          <span :class="{ 'total-max--is-under': totalPeople < form.persons }">
+            Suitable for {{ totalPeople }} people</span
+          >
+        </div>
+        <!-- <div v-if="totalPrice > 0">
+          
+          
+          <span v-if="form.persons > totalPeople"
+            >Careful not enough space</span
+          >
+          
+        </div> -->
+        <ovl-button
+          @click="continueDidClick"
+          style="margin: var(--spacing-md) 0;"
+          >Continue</ovl-button
+        >
       </div>
+
       <!-- <div class="booking-offer__container">
         <div class="booking-offer">
           <h4 class="type--heading-3 booking-offer__title">Overlook One</h4>
@@ -93,6 +122,7 @@ import OvlGallery from "@/components/atomic/OvlGallery.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
 import BookingSearchForm from "@/components/BookingSearchForm.vue";
 import RoomInfo from "@/components/RoomInfo.vue";
+import Bookings from "./Bookings.vue";
 
 @Component({
   components: { OvlGallery, OvlButton, BookingSearchForm, RoomInfo }
@@ -137,10 +167,13 @@ export default class Book extends Vue {
   }[] = [];
 
   focusedOfferId = 0;
+  hoveredOfferId = 0;
   hoveredSelectionNumber = 0;
 
   bookingFormWillSubmit(form: BookingForm) {
     this.form = form;
+    this.bookingSelection = [];
+    this.focusedOfferId = 0;
     this.fetchOffers(form);
   }
 
@@ -148,7 +181,6 @@ export default class Book extends Vue {
     axios
       .get("/booking-offers", {
         params: {
-          // eslint-disable-next-line @typescript-eslint/camelcase
           hotel_id: form.hotel,
           ...form
         }
@@ -161,11 +193,14 @@ export default class Book extends Vue {
   }
 
   stripHtml(text: string) {
-    return text.replace(/(<([^>]+)>)/gi, "");
+    const textArea = document.createElement("textarea");
+    textArea.innerHTML = text;
+    return textArea.value.replace(/(<([^>]+)>)/gi, "");
   }
 
   offerDidClick(event: Event) {
-    const target = event.target as HTMLDivElement;
+    const target = event.currentTarget as HTMLDivElement;
+    this.focusedOfferId = (target.id as unknown) as number;
     axios.get(`/roomType/show/${target.id}`).then(response => {
       this.setGalleryImages(response.data.data.medias);
     });
@@ -212,12 +247,12 @@ export default class Book extends Vue {
   }
 
   bookingSelectorDidHover(numberOfSelection: number, roomTypeId: number) {
-    this.focusedOfferId = roomTypeId;
+    this.hoveredOfferId = roomTypeId;
     this.hoveredSelectionNumber = numberOfSelection;
   }
 
   bookingSeletorsDidEndHover() {
-    this.focusedOfferId = 0;
+    this.hoveredOfferId = 0;
     this.hoveredSelectionNumber = 0;
   }
 
@@ -243,6 +278,10 @@ export default class Book extends Vue {
     return total;
   }
 
+  numberOfSelectors(offer: any) {
+    return offer.qtyAvailable < 3 ? offer.qtyAvailable : 3;
+  }
+
   continueDidClick() {
     axios
       .post("booking/store", {
@@ -254,6 +293,12 @@ export default class Book extends Vue {
       })
       .then(response => {
         console.log(response);
+        this.$router.push({ name: "Bookings" });
+        Vue.notify({
+          group: "ovl-notification-center",
+          title: "Booking successful",
+          text: "We look forward to your stay at Overlook."
+        });
       });
   }
 }
@@ -276,20 +321,23 @@ export default class Book extends Vue {
 .booking-offer {
   border-top: 1px solid var(--color-dark-l2);
   cursor: pointer;
+  padding-bottom: var(--spacing-md);
 }
 
 .booking-offer__description {
   margin: var(--spacing-md) 0;
 }
 
+.booking-overview {
+  border-top: 1px solid var(--color-dark-l2);
+}
+
 .booking-offer__price {
   text-align: right;
-  margin-bottom: var(--spacing-md);
 }
 
 .booking-selector__container {
   display: flex;
-  margin: var(--spacing-sm) 0;
 }
 
 .booking-tick-selector {
@@ -303,6 +351,10 @@ export default class Book extends Vue {
 
 .booking-tick-selector--is-selected {
   color: var(--color-highlight);
+}
+
+.total-max--is-under {
+  color: var(--color-negative);
 }
 
 .gg-check-o {
