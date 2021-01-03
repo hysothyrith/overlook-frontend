@@ -121,7 +121,12 @@ export default class Book extends Vue {
     }
   ];
 
-  form: BookingForm = {};
+  form: BookingForm = {
+    hotel: 0,
+    persons: 0,
+    checkInDate: "",
+    checkOutDate: ""
+  };
   offers = [];
   offersAreFetched = false;
   bookingSelection: {
@@ -160,7 +165,8 @@ export default class Book extends Vue {
   }
 
   offerDidClick(event: Event) {
-    axios.get(`/roomType/show/${event.currentTarget?.id}`).then(response => {
+    const target = event.target as HTMLDivElement;
+    axios.get(`/roomType/show/${target.id}`).then(response => {
       this.setGalleryImages(response.data.data.medias);
     });
   }
@@ -176,7 +182,10 @@ export default class Book extends Vue {
     }
   }
 
-  bookingSelectorDidClick(numberOfSelection: number, offer: any) {
+  bookingSelectorDidClick(
+    numberOfSelection: number,
+    offer: { id: number; max: number; price: number }
+  ) {
     // console.log(id);
     // console.log(event.currentTarget.number);
     // console.log(numberOfSelection);

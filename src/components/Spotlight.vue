@@ -17,7 +17,7 @@
           >Book a stay</ovl-button
         >
         <ovl-button
-          type="outline"
+          design="outline"
           class="spotlight__action"
           @click="aboutButtonDidClick"
           >About hotel</ovl-button

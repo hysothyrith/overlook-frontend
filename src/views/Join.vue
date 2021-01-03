@@ -10,7 +10,15 @@
     <div class="ovl-grid__body">
       <div class="type--preheader">Join Overlook</div>
       <h2 class="type--heading-1">Register</h2>
-      <form @submit.prevent="register(form)">
+      <form
+        @submit.prevent="
+          register({
+            ...form,
+            first_name: form.firstName,
+            last_name: form.lastName
+          })
+        "
+      >
         <ovl-input
           type="text"
           title="First Name"

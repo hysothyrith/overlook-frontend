@@ -1,7 +1,7 @@
 <template>
   <div class="bookings">
     <div class="type--preheader">Welcome Home</div>
-    <h2 class="type--heading-1">Hi, {{ user.firstName }}</h2>
+    <h2 class="type--heading-1">Hi, {{ user.first_name }}</h2>
     <div v-if="isReady && bookings.length == 0">
       You don't have any bookings at Overlook yet.
     </div>

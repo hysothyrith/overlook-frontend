@@ -98,7 +98,7 @@
           @click="navItemDidClick"
           to="/sign-in"
         >
-          <ovl-button type="outline">Sign In</ovl-button>
+          <ovl-button design="outline">Sign In</ovl-button>
         </router-link>
       </template>
     </div>
@@ -199,6 +199,7 @@ export default class OvlNavbar extends Vue {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-start;
+  cursor: pointer;
 }
 
 .dropdown-navbar-item__container {

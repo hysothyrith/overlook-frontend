@@ -1,7 +1,8 @@
 <template>
   <button
     class="ovl-button  solid"
-    :class="{ outline: type === 'outline' }"
+    :class="{ outline: design === 'outline' }"
+    :type="type"
     @click="$emit('click')"
   >
     <slot></slot>
@@ -13,7 +14,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class OvlButton extends Vue {
-  @Prop() private type!: string;
+  @Prop() private design!: string;
+  @Prop({ default: "submit" }) private type!: string;
 }
 </script>
 

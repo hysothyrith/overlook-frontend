@@ -1,9 +1,22 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, {
+  NavigationGuard,
+  NavigationGuardNext,
+  RouteConfig
+} from "vue-router";
 import Home from "../views/Home.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
+
+const beforeEnterAuthMiddleware = (next: NavigationGuardNext<Vue>) => {
+  if (!store.getters["auth/authenticated"]) {
+    return next({
+      name: "SignIn"
+    });
+  }
+  next();
+};
 
 const routes: Array<RouteConfig> = [
   {
@@ -24,17 +37,8 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/book/",
-    component: () => import("../views/Book.vue"),
-    children: [
-      {
-        path: "",
-        component: () => import("../components/BookingSearchForm.vue")
-      },
-      {
-        path: ":room",
-        component: () => import("../components/RoomInfo.vue")
-      }
-    ]
+    name: "Book",
+    component: () => import("../views/Book.vue")
   },
   {
     path: "/contact-us",
@@ -56,12 +60,15 @@ const routes: Array<RouteConfig> = [
     name: "Bookings",
     component: () => import("../views/Bookings.vue"),
     beforeEnter: (to, from, next) => {
-      if (!store.getters["auth/authenticated"]) {
-        return next({
-          name: "SignIn"
-        });
-      }
-      next();
+      beforeEnterAuthMiddleware(next);
+    }
+  },
+  {
+    path: "/account",
+    name: "Account",
+    component: () => import("../views/Account.vue"),
+    beforeEnter: (to, from, next) => {
+      beforeEnterAuthMiddleware(next);
     }
   }
 ];

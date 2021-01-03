@@ -34,11 +34,7 @@ export default {
 
       if (response.data.success) {
         commit("SET_TOKEN", response.data.data.access_token);
-        commit("SET_USER", {
-          ...response.data.data.customer,
-          firstName: response.data.data.customer.first_name,
-          lastName: response.data.data.customer.last_name
-        });
+        commit("SET_USER", response.data.data.customer);
       } else {
         console.log("Login failed");
         dispatch("invalidateToken");
@@ -61,21 +57,11 @@ export default {
     },
 
     async register({ commit }: any, form: Registration) {
-      const obj = {
-        first_name: form.firstName,
-        last_name: form.lastName,
-        ...form
-      };
-      console.log(obj);
-      const response = await axios.post("register", obj);
+      const response = await axios.post("register", form);
 
       if (response.data.success) {
         commit("SET_TOKEN", response.data.data.access_token);
-        commit("SET_USER", {
-          ...response.data.data.customer,
-          firstName: response.data.data.customer.first_name,
-          lastName: response.data.data.customer.last_name
-        });
+        commit("SET_USER", response.data.data.customer);
       } else {
         console.log("Registration failed");
       }
@@ -84,6 +70,10 @@ export default {
     invalidateToken({ commit }: any) {
       commit("SET_TOKEN", null);
       commit("SET_USER", null);
+    },
+
+    updateUser({ commit }: any, user: any) {
+      commit("SET_USER", user);
     }
   }
 };
