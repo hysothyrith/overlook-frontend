@@ -70,46 +70,21 @@
 
       <div v-if="totalPrice > 0" class="booking-overview">
         <div
-          style="display: flex; justify-content: space-between; align-items: center;"
+          style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-md) 0;"
         >
-          <h4 class="type--heading-3">Total: ${{ totalPrice }}</h4>
+          <h4 class="type--heading-3" style="margin: 0;">
+            Total: ${{ totalPrice }}
+          </h4>
           <span :class="{ 'total-max--is-under': totalPeople < form.persons }">
             Suitable for {{ totalPeople }} people</span
           >
         </div>
-        <!-- <div v-if="totalPrice > 0">
-          
-          
-          <span v-if="form.persons > totalPeople"
-            >Careful not enough space</span
-          >
-          
-        </div> -->
         <ovl-button
           @click="continueDidClick"
           style="margin: var(--spacing-md) 0;"
           >Continue</ovl-button
         >
       </div>
-
-      <!-- <div class="booking-offer__container">
-        <div class="booking-offer">
-          <h4 class="type--heading-3 booking-offer__title">Overlook One</h4>
-          <div class="booking-offer__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-            debitis laborum id explicabo minus error, assumenda dolores,
-            sapiente deserunt, fuga rem? Nemo quos officia consequatur illum
-            nisi facilis magni exercitationem.
-          </div>
-          <div class="booking-offer__price">$290 <i>per night</i></div>
-          <div class="booking-selector__container">
-            <i class="booking-tick-selector gg-check-o"></i>
-            <i class="booking-tick-selector gg-check-o"></i>
-            <i class="booking-tick-selector gg-check-o"></i>
-          </div>
-          <div class="type--meta">Book 2 rooms</div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -121,11 +96,9 @@ import axios from "axios";
 import OvlGallery from "@/components/atomic/OvlGallery.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
 import BookingSearchForm from "@/components/BookingSearchForm.vue";
-import RoomInfo from "@/components/RoomInfo.vue";
-import Bookings from "./Bookings.vue";
 
 @Component({
-  components: { OvlGallery, OvlButton, BookingSearchForm, RoomInfo }
+  components: { OvlGallery, OvlButton, BookingSearchForm }
 })
 export default class Book extends Vue {
   galleryImages: Image[] = [
@@ -294,7 +267,7 @@ export default class Book extends Vue {
       .then(response => {
         console.log(response);
         this.$router.push({ name: "Bookings" });
-        Vue.notify({
+        this.$notify({
           group: "ovl-notification-center",
           title: "Booking successful",
           text: "We look forward to your stay at Overlook."

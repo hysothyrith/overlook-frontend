@@ -1,10 +1,10 @@
 <template>
   <div class="ovl-grid">
-    <div class="ovl-image-wrapper--full-width">
+    <div class="ovl-image-wrapper--full-width cover-image">
       <img
         class="ovl-image--cover"
-        src="https://source.unsplash.com/random"
-        alt="Test"
+        src="https://images.unsplash.com/photo-1603561128570-224a45ebc081?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
+        alt="Christmas Tree"
       />
     </div>
     <div class="ovl-grid__body">
@@ -18,7 +18,14 @@
           placeholder="john@smith.com"
         />
         <ovl-input type="password" v-model="form.password" title="Password" />
-        <div>New to Overlook? <a href="">Join</a></div>
+        <div class="type--meta" style="margin-top: var(--spacing-sm);">
+          New to Overlook?
+          <a
+            @click="$router.push('/join')"
+            style="color: var(--color-highlight);"
+            >Join</a
+          >
+        </div>
         <ovl-button class="register-button">Sign In</ovl-button>
       </form>
     </div>

@@ -1,10 +1,10 @@
 <template>
   <div class="ovl-grid">
-    <div class="ovl-image-wrapper--full-width">
+    <div class="ovl-image-wrapper--full-width cover-image">
       <img
         class="ovl-image--cover"
-        src="https://source.unsplash.com/random"
-        alt="Test"
+        src="https://images.unsplash.com/photo-1538964173425-93884d739596?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=975&q=80"
+        alt="Beach image"
       />
     </div>
     <div class="ovl-grid__body">
@@ -44,12 +44,14 @@
           name="password"
           v-model="form.password"
         />
-        <!-- <ovl-input
-          type="password"
-          title="Re-enter Password"
-          v-model="form.passwordConfirmation"
-        /> -->
-        <div>Already part of Overlook? <a href="">Sign In</a></div>
+        <div class="type--meta" style="margin-top: var(--spacing-sm);">
+          Already part of Overlook?
+          <a
+            @click="$router.push('/sign-in')"
+            style="color: var(--color-highlight);"
+            >Sign In</a
+          >
+        </div>
         <ovl-button class="register-button">Register</ovl-button>
       </form>
     </div>
@@ -57,6 +59,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, Vue } from "vue-property-decorator";
 import OvlInput from "@/components/atomic/OvlInput.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";

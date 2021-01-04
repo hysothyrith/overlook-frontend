@@ -64,7 +64,7 @@ import OvlButton from "@/components/atomic/OvlButton.vue";
 export default class BookingSearchForm extends Vue {
   hotels = [];
   isReady = false;
-  form: BookingForm = {
+  form: any = {
     hotel: this.$route.query.hotel || "1",
     persons: this.$route.query.persons || "1",
     checkInDate: this.$route.query.checkInDate || "",

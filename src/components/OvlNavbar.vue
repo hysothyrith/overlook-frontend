@@ -73,7 +73,7 @@
             <router-link
               class="navbar__dropdown-item"
               @click="navItemDidClick"
-              to="/account"
+              to="/account/information"
             >
               Account information
             </router-link>

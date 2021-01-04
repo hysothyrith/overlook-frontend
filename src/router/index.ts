@@ -69,7 +69,17 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/Account.vue"),
     beforeEnter: (to, from, next) => {
       beforeEnterAuthMiddleware(next);
-    }
+    },
+    children: [
+      {
+        path: "information",
+        component: () => import("../components/AccountInfoForm.vue")
+      },
+      {
+        path: "change-password",
+        component: () => import("../components/PasswordChangeForm.vue")
+      }
+    ]
   }
 ];
 
