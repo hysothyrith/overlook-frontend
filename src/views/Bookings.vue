@@ -1,7 +1,14 @@
 <template>
   <div class="bookings">
-    <div class="type--preheader">Welcome Home</div>
-    <h2 class="type--heading-1">Hi, {{ user.first_name }}</h2>
+    <div class="ovl-welcome-header">
+      <div>
+        <div class="type--preheader">Welcome Home</div>
+        <h2 class="type--heading-1" style="margin: 0;">
+          Hi, {{ user.first_name }}
+        </h2>
+      </div>
+      <ovl-avatar :allowChange="false" :userImage="user.image" />
+    </div>
     <div v-if="isReady && bookings.length == 0">
       You don't have any bookings at Overlook yet.
     </div>
@@ -17,7 +24,7 @@
     </ovl-collapsible-section>
 
     <ovl-collapsible-section
-      title="Past Stays"
+      title="Previous Stays"
       :collapseByDefault="upcomingBookings.length > 0"
       v-if="isReady && pastBookings.length > 0"
     >
@@ -32,12 +39,15 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import axios from "axios";
+import { Getter } from "vuex-class";
 import OvlCollapsibleSection from "@/components/atomic/OvlCollapsibleSection.vue";
 import OvlBookingInfoCard from "@/components/OvlBookingInfoCard.vue";
-import { Getter } from "vuex-class";
-import axios from "axios";
+import OvlAvatar from "@/components/atomic/OvlAvatar.vue";
 
-@Component({ components: { OvlCollapsibleSection, OvlBookingInfoCard } })
+@Component({
+  components: { OvlCollapsibleSection, OvlBookingInfoCard, OvlAvatar }
+})
 export default class Bookings extends Vue {
   @Getter("auth/user") user!: () => User;
   bookings: Booking[] = [];

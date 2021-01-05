@@ -192,6 +192,7 @@ export default class OvlNavbar extends Vue {
   align-items: flex-end;
   background-color: var(--color-light);
   padding-bottom: var(--spacing-md);
+  z-index: 100;
 }
 
 .dropdown-navbar-item__container--is-hidden {

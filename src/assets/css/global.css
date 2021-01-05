@@ -149,6 +149,13 @@ a {
   flex-wrap: wrap;
 }
 
+.ovl-welcome-header {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-lg);
+}
+
 /** Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 }
@@ -171,6 +178,13 @@ a {
 
   .cover-image {
     max-height: 100%;
+  }
+
+  .ovl-welcome-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 

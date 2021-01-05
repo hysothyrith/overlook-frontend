@@ -1,6 +1,6 @@
 <template>
   <div class="account">
-    <div class="ovl-flex-spread" style="margin-bottom: var(--spacing-lg);">
+    <div class="ovl-welcome-header">
       <div>
         <div class="type--preheader">
           Your Overlook Account
@@ -9,7 +9,7 @@
           {{ user.first_name }} {{ user.last_name }}
         </h2>
       </div>
-      <ovl-avatar :allowEdit="true" />
+      <ovl-avatar :allowChange="true" :userImage="user.image" />
     </div>
     <router-view></router-view>
   </div>
