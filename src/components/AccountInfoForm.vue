@@ -96,7 +96,6 @@ export default class AccountInfoForm extends Vue {
 
   created() {
     this.setCurrentUserInfo();
-    console.log(this.user);
   }
 
   setCurrentUserInfo() {
@@ -104,7 +103,6 @@ export default class AccountInfoForm extends Vue {
   }
 
   formWillSubmit() {
-    console.log("formWillSubmit");
     const changedFields: any = {};
     const user: any = this.user;
     for (const key in this.currentUserInfo) {
@@ -118,8 +116,10 @@ export default class AccountInfoForm extends Vue {
       changedFields.constructor !== Object
     ) {
       axios.post("/profile/update", changedFields).then(() => {
-        this.updateUser(this.currentUserInfo);
+        this.updateUser({ ...this.currentUserInfo });
       });
+    } else {
+      alert("didNotChange");
     }
   }
 

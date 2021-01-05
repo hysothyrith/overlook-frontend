@@ -1,10 +1,10 @@
 <template>
-  <div class="ovl-grid">
-    <ovl-gallery :galleryImages="galleryImages" class="booking__gallery" />
+  <div class="ovl-grid book">
+    <ovl-gallery :galleryImages="galleryImages" class="book__gallery" />
     <div class="ovl-grid__body">
       <booking-search-form @willSubmit="bookingFormWillSubmit" />
 
-      <div v-if="offersAreFetched" class="booking-offer__container">
+      <div v-if="offersAreFetched" class="booking-offer__container book__body">
         <div
           v-for="offer in offers"
           :key="offer.id"
@@ -79,11 +79,19 @@
             Suitable for {{ totalPeople }} people</span
           >
         </div>
-        <ovl-button
-          @click="continueDidClick"
-          style="margin: var(--spacing-md) 0;"
-          >Continue</ovl-button
-        >
+        <template v-if="authenticated">
+          <ovl-button
+            @click="continueDidClick"
+            style="margin: var(--spacing-md) 0;"
+            >Continue</ovl-button
+          >
+        </template>
+        <template v-else>
+          <div class="type--body">
+            You need an Overlook account before booking. Please sign-in or
+            register to continue.
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -92,6 +100,7 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/camelcase */
 import { Component, Vue } from "vue-property-decorator";
+import { Getter } from "vuex-class";
 import axios from "axios";
 import OvlGallery from "@/components/atomic/OvlGallery.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
@@ -101,26 +110,31 @@ import BookingSearchForm from "@/components/BookingSearchForm.vue";
   components: { OvlGallery, OvlButton, BookingSearchForm }
 })
 export default class Book extends Vue {
+  @Getter("auth/authenticated") authenticated!: () => boolean;
   galleryImages: Image[] = [
     {
       id: 1,
-      src: require("../assets/images/violet_pool.jpg"),
-      alt: "Random Unsplash Image"
+      src:
+        "https://images.unsplash.com/photo-1533633310920-cc9bf1e7f9b0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+      alt: "Overlook Hotels Promo Image - Bedroom"
     },
     {
       id: 2,
-      src: require("../assets/images/blue_pool.jpg"),
-      alt: "Random Unsplash Image"
+      src:
+        "https://images.unsplash.com/photo-1525280244725-771f2a31841d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80",
+      alt: "Overlook Hotels Promo Image - Breakfast"
     },
     {
       id: 3,
-      src: require("../assets/images/sand_living_room.jpg"),
-      alt: "Random Unsplash Image"
+      src:
+        "https://images.unsplash.com/photo-1488901512066-cd403111aeb2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80",
+      alt: "Overlook Hotels Promo Image - Living Room"
     },
     {
       id: 4,
-      src: require("../assets/images/white_pool.jpg"),
-      alt: "Random Unsplash Image"
+      src:
+        "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+      alt: "Overlook Hotels Promo Image - White Bedroom"
     }
   ];
 
@@ -278,13 +292,14 @@ export default class Book extends Vue {
 </script>
 
 <style scoped>
-.booking__grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+.book {
+  height: 100vh;
 }
 
-.booking__gallery {
-  position: relative;
+.book__gallery,
+.book__body {
+  height: 100%;
+  overflow: auto;
 }
 
 .booking-offer__container {

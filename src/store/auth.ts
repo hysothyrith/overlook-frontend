@@ -71,8 +71,6 @@ export default {
     },
 
     async register({ commit }: any, form: Registration) {
-      // const response = await axios.post("register", form);
-
       try {
         const response = await axios.post("register", form);
 

@@ -12,7 +12,6 @@
     >
       <router-link
         class="navbar__item type--action"
-        :class="{ 'navbar__item--is-active': isActive }"
         @click.native="navItemDidClick"
         to="/"
         exact
@@ -20,28 +19,24 @@
       >
       <router-link
         class="navbar__item type--action"
-        :class="{ 'navbar__item--is-active': isActive }"
         @click.native="navItemDidClick"
         to="/about-us"
         >About us</router-link
       >
       <router-link
         class="navbar__item type--action"
-        :class="{ 'navbar__item--is-active': isActive }"
         @click.native="navItemDidClick"
         to="/hotels"
         >Hotels</router-link
       >
       <router-link
         class="navbar__item type--action"
-        :class="{ 'navbar__item--is-active': isActive }"
         @click.native="navItemDidClick"
         to="/book"
         >Book</router-link
       >
       <router-link
         class="navbar__item type--action"
-        :class="{ 'navbar__item--is-active': isActive }"
         @click.native="navItemDidClick"
         to="/contact-us"
         >Contact us</router-link
@@ -50,7 +45,6 @@
       <template v-if="authenticated">
         <div
           class="navbar__item type--action dropdown-navbar-item"
-          :class="{ 'navbar__item--is-active': isActive }"
           @click="accountDidClick"
         >
           <div class="dropdown-navbar-item__title">
@@ -86,7 +80,6 @@
       <template v-else>
         <router-link
           class="navbar__item navbar__action"
-          :class="{ 'navbar__item--is-active': isActive }"
           @click="navItemDidClick"
           to="/join"
         >
@@ -94,7 +87,6 @@
         </router-link>
         <router-link
           class="navbar__item navbar__action"
-          :class="{ 'navbar__item--is-active': isActive }"
           @click="navItemDidClick"
           to="/sign-in"
         >
@@ -168,7 +160,6 @@ export default class OvlNavbar extends Vue {
   flex-direction: column;
   align-items: flex-end;
   height: 0;
-  opacity: 0;
   visibility: hidden;
 }
 
@@ -176,8 +167,6 @@ export default class OvlNavbar extends Vue {
   margin: var(--spacing-xs) 0;
   color: var(--color-dark);
   text-decoration: none;
-  opacity: 0;
-  visibility: hidden;
 }
 
 .navbar__item.router-link-active,
@@ -185,14 +174,9 @@ export default class OvlNavbar extends Vue {
   color: var(--color-highlight);
 }
 
-.navbar__item--is-active,
-.navbar__item-container--is-active {
-  opacity: 100%;
-  visibility: visible;
-}
-
 .navbar__item-container--is-active {
   height: 100vh;
+  visibility: visible;
 }
 
 .dropdown-navbar-item__title {
@@ -206,6 +190,8 @@ export default class OvlNavbar extends Vue {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  background-color: var(--color-light);
+  padding-bottom: var(--spacing-md);
 }
 
 .dropdown-navbar-item__container--is-hidden {
@@ -266,6 +252,7 @@ export default class OvlNavbar extends Vue {
   .dropdown-navbar-item__container {
     position: absolute;
     align-items: flex-start;
+    /* box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.4); */
   }
 
   .navbar__dropdown-item {

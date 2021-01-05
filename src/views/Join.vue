@@ -64,7 +64,7 @@ import { Component, Vue } from "vue-property-decorator";
 import OvlInput from "@/components/atomic/OvlInput.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
 import { Action } from "vuex-class";
-import "@/interfaces/Registration.ts";
+// import "@/interfaces/Registration.ts";
 
 @Component({
   components: {
