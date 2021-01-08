@@ -5,6 +5,10 @@
       <booking-search-form @willSubmit="bookingFormWillSubmit" />
 
       <div v-if="offersAreFetched" class="booking-offer__container book__body">
+        <div v-if="offers.length === 0">
+          Sorry, there are no rooms available. Please consider trying a
+          different date or any of our other hotels.
+        </div>
         <div
           v-for="offer in offers"
           :key="offer.id"
@@ -69,9 +73,7 @@
       </div>
 
       <div v-if="totalPrice > 0" class="booking-overview">
-        <div
-          style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-md) 0;"
-        >
+        <div class="ovl-flex-spread" style="padding: var(--spacing-md) 0;">
           <h4 class="type--heading-3" style="margin: 0;">
             Total: ${{ totalPrice }}
           </h4>
