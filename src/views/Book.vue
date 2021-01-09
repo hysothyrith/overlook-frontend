@@ -82,11 +82,59 @@
           >
         </div>
         <template v-if="authenticated">
-          <ovl-button
-            @click="continueDidClick"
-            style="margin: var(--spacing-md) 0;"
-            >Continue</ovl-button
-          >
+          <div>
+            <div class="payment-options type--body">
+              <b>Available Payment Options</b>
+              <div v-for="option in availablePaymentOptions" :key="option.id">
+                <input
+                  type="radio"
+                  :id="option.name"
+                  :value="option.id"
+                  v-model="selectedPaymentOption"
+                  style="margin-right: var(--spacing-sm);"
+                />
+                <label :for="option.name">{{ option.name }}</label>
+              </div>
+              <div
+                v-if="selectedPaymentOption == 1 || selectedPaymentOption == 2"
+              >
+                <ovl-input
+                  type="text"
+                  title="Card number"
+                  v-model="cardNumber"
+                  @input="cardNumberDidInput"
+                  maxlength="19"
+                />
+                <ovl-input type="text" title="Card-holder Name" />
+                <div>
+                  <ovl-input
+                    type="select"
+                    title="Expiration Date"
+                    style="width: 30%; display: inline-block; margin-right: var(--spacing-sm); padding: 0;"
+                  >
+                    <option
+                      v-for="date in cardExpirationDates"
+                      :key="date"
+                      :value="date"
+                      >{{ date }}</option
+                    >
+                  </ovl-input>
+                  <ovl-input
+                    type="text"
+                    title="CVV"
+                    maxlength="3"
+                    style="width: 20%; display: inline-block;"
+                  />
+                </div>
+              </div>
+            </div>
+            <ovl-button
+              v-if="selectedPaymentOption !== 0"
+              @click="continueDidClick"
+              style="margin: var(--spacing-md) 0;"
+              >Finish booking</ovl-button
+            >
+          </div>
         </template>
         <template v-else>
           <div class="type--body">
@@ -107,9 +155,10 @@ import axios from "axios";
 import OvlGallery from "@/components/atomic/OvlGallery.vue";
 import OvlButton from "@/components/atomic/OvlButton.vue";
 import BookingSearchForm from "@/components/BookingSearchForm.vue";
+import OvlInput from "@/components/atomic/OvlInput.vue";
 
 @Component({
-  components: { OvlGallery, OvlButton, BookingSearchForm }
+  components: { OvlGallery, OvlButton, BookingSearchForm, OvlInput }
 })
 export default class Book extends Vue {
   @Getter("auth/authenticated") authenticated!: () => boolean;
@@ -155,6 +204,9 @@ export default class Book extends Vue {
     max: number;
   }[] = [];
 
+  availablePaymentOptions = [];
+  selectedPaymentOption = 0;
+
   focusedOfferId = 0;
   hoveredOfferId = 0;
   hoveredSelectionNumber = 0;
@@ -177,6 +229,7 @@ export default class Book extends Vue {
       .then(response => {
         console.log(response.data.data);
         this.offers = response.data.data.roomTypes;
+        this.availablePaymentOptions = response.data.data.paymentType;
         this.offersAreFetched = true;
       });
   }
@@ -267,13 +320,41 @@ export default class Book extends Vue {
     return offer.qtyAvailable < 3 ? offer.qtyAvailable : 3;
   }
 
+  get cardExpirationDates() {
+    const formatMonth = (month: number) => {
+      return (month < 10 ? "0" : "") + month;
+    };
+    const expirationDates: string[] = [];
+
+    for (let i = 0; i < 48; i++) {
+      const today = new Date();
+      const date = new Date(today.setMonth(today.getMonth() + i));
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear() % 2000;
+      expirationDates.push(`${formatMonth(month)}/${year}`);
+    }
+    return expirationDates;
+  }
+
+  cardNumber = "";
+  cardNumberDidInput() {
+    const cardNumberLength = this.cardNumber.length;
+    if (
+      cardNumberLength === 4 ||
+      cardNumberLength === 9 ||
+      cardNumberLength === 14
+    ) {
+      this.cardNumber += " ";
+    }
+  }
+
   continueDidClick() {
     axios
       .post("booking/store", {
         hotel_id: this.form.hotel,
         check_in_date: this.form.checkInDate,
         check_out_date: this.form.checkOutDate,
-        payment_type_id: 1,
+        payment_type_id: this.selectedPaymentOption,
         roomTypes: this.bookingSelection
       })
       .then(response => {
@@ -332,6 +413,11 @@ export default class Book extends Vue {
 
 .total-max--is-under {
   color: var(--color-negative);
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
 }
 
 .gg-check-o {

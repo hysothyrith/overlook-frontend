@@ -27,6 +27,17 @@ export default class OvlButton extends Vue {
   outline: none;
 }
 
+.ovl-button:disabled,
+.ovl-button:disabled:hover {
+  background-color: var(--color-dark-l2);
+  border-color: var(--color-dark-l2);
+  color: var(--color-dark-l1);
+}
+
+.ovl-button:disabled:hover {
+  cursor: default;
+}
+
 .solid {
   color: var(--color-light);
   background-color: var(--color-dark);
