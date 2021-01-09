@@ -117,9 +117,15 @@ export default class AccountInfoForm extends Vue {
     ) {
       axios.post("/profile/update", changedFields).then(() => {
         this.updateUser({ ...this.currentUserInfo });
+        this.$notify({
+          group: "ovl-notification-center",
+          type: "success",
+          title: "Information changed successfully",
+          text: "Thank you for keeping us updated."
+        });
       });
     } else {
-      alert("didNotChange");
+      console.log("No information was changed");
     }
   }
 

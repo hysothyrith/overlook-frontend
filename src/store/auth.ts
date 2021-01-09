@@ -38,15 +38,15 @@ export default {
         commit("SET_USER", response.data.data.customer);
         Vue.notify({
           group: "ovl-notification-center",
-          title: "Sign-In Successfull",
           type: "success",
+          title: "Sign-in successfull",
           text: "Welcome back to Overlook."
         });
         router.back();
       } else {
         Vue.notify({
           group: "ovl-notification-center",
-          title: "Sorry",
+          title: "Sorry, there was an error",
           type: "error",
           text: "Your credentials do not match our records. Please try again."
         });
@@ -79,7 +79,7 @@ export default {
           commit("SET_USER", response.data.data.customer);
           Vue.notify({
             group: "ovl-notification-center",
-            title: "Registration Successfull",
+            title: "Registration successfull",
             type: "success",
             text: "Welcome to the Overlook hotels."
           });

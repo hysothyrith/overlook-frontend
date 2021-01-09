@@ -59,8 +59,8 @@ export default class OvlAvatar extends Vue {
             this.$notify({
               group: "ovl-notification-center",
               type: "success",
-              title: "Success",
-              text: "Overlook avatar set successfully."
+              title: "New avatar set successfully",
+              text: "Thank you for keeping us updated."
             });
           });
       };

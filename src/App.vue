@@ -2,7 +2,12 @@
   <div id="app">
     <ovl-navbar class="navbar" />
     <router-view class="router-view" />
-    <notifications group="ovl-notification-center" position="top center" />
+    <notifications
+      group="ovl-notification-center"
+      position="top center"
+      width="100%"
+      classes="ovl-notification-style"
+    />
     <!-- <ovl-footer class="footer" /> -->
   </div>
 </template>
@@ -35,6 +40,26 @@ export default class Home extends Vue {}
 .footer {
   margin: var(--spacing-xl) var(--spacing-md) var(--spacing-md)
     var(--spacing-md);
+}
+
+.ovl-notification-style {
+  color: var(--color-light);
+  padding: var(--spacing-md);
+  background: var(--color-dark);
+}
+
+.ovl-notification-style .notification-title,
+.ovl-notification-style .notification-content {
+  font-size: 16px;
+  line-height: 160%;
+}
+
+.ovl-notification-style.success {
+  background: var(--color-highlight);
+}
+
+.ovl-notification-style.error {
+  background: var(--color-negative);
 }
 
 @media (min-width: 768px) {

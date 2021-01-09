@@ -1,5 +1,5 @@
 <template>
-  <div class="ovl-grid book">
+  <div class="ovl-grid book ovl-grid--book">
     <ovl-gallery :galleryImages="galleryImages" class="book__gallery" />
     <div class="ovl-grid__body">
       <booking-search-form @willSubmit="bookingFormWillSubmit" />
@@ -210,10 +210,6 @@ export default class Book extends Vue {
     numberOfSelection: number,
     offer: { id: number; max: number; price: number }
   ) {
-    // console.log(id);
-    // console.log(event.currentTarget.number);
-    // console.log(numberOfSelection);
-    // console.log(roomTypeId);
     const existingSelection = this.bookingSelection.find(
       selection => selection["id"] == offer.id
     );
@@ -286,6 +282,7 @@ export default class Book extends Vue {
         this.$notify({
           group: "ovl-notification-center",
           title: "Booking successful",
+          type: "success",
           text: "We look forward to your stay at Overlook."
         });
       });
@@ -294,16 +291,6 @@ export default class Book extends Vue {
 </script>
 
 <style scoped>
-.book {
-  height: 100vh;
-}
-
-.book__gallery,
-.book__body {
-  height: 100%;
-  overflow: auto;
-}
-
 .booking-offer__container {
   margin-top: var(--spacing-lg);
 }
@@ -371,5 +358,20 @@ export default class Book extends Vue {
   border-style: solid;
   transform-origin: bottom left;
   transform: rotate(45deg);
+}
+@media (min-width: 768px) {
+  .book {
+    height: 100vh;
+  }
+
+  .ovl-grid--book {
+    grid-template-columns: 55% 45%;
+  }
+
+  .book__gallery,
+  .book__body {
+    height: 100%;
+    overflow: auto;
+  }
 }
 </style>

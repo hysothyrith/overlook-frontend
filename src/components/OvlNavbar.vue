@@ -43,11 +43,8 @@
       >
 
       <template v-if="authenticated">
-        <div
-          class="navbar__item type--action dropdown-navbar-item"
-          @click="accountDidClick"
-        >
-          <div class="dropdown-navbar-item__title">
+        <div class="navbar__item type--action dropdown-navbar-item">
+          <div class="dropdown-navbar-item__title" @click="accountDidClick">
             <span>Account</span>
             <i class="gg-chevron-down"></i>
           </div>
@@ -59,14 +56,14 @@
           >
             <router-link
               class="navbar__dropdown-item"
-              @click="navItemDidClick"
+              @click.native="navItemDidClick"
               to="/bookings"
             >
               Bookings
             </router-link>
             <router-link
               class="navbar__dropdown-item"
-              @click="navItemDidClick"
+              @click.native="navItemDidClick"
               to="/account/information"
             >
               Account information
@@ -80,14 +77,14 @@
       <template v-else>
         <router-link
           class="navbar__item navbar__action"
-          @click="navItemDidClick"
+          @click.native="navItemDidClick"
           to="/join"
         >
           <ovl-button>Join</ovl-button>
         </router-link>
         <router-link
           class="navbar__item navbar__action"
-          @click="navItemDidClick"
+          @click.native="navItemDidClick"
           to="/sign-in"
         >
           <ovl-button design="outline">Sign In</ovl-button>

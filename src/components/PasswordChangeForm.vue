@@ -49,7 +49,7 @@ export default class AccountInfoForm extends Vue {
     if (this.form.new_password === this.form.old_password) {
       this.$notify({
         group: "ovl-notification-center",
-        title: "Sorry",
+        title: "Sorry, there was an error",
         type: "error",
         text: "Your new password cannot be the same as your old password."
       });
@@ -58,7 +58,7 @@ export default class AccountInfoForm extends Vue {
     if (this.form.new_password !== this.form.confirm_new_password) {
       this.$notify({
         group: "ovl-notification-center",
-        title: "Sorry",
+        title: "Sorry, there was an error",
         type: "error",
         text: "Your new password and its confirmation don't match."
       });
@@ -77,7 +77,7 @@ export default class AccountInfoForm extends Vue {
       } else {
         this.$notify({
           group: "ovl-notification-center",
-          title: "Sorry",
+          title: "Sorry, there was an error",
           type: "error",
           text: "Your password didn't match our record. Please try again."
         });
