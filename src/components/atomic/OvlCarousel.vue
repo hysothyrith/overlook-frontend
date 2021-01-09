@@ -1,7 +1,9 @@
 <template>
   <div class="carousel">
     <div class="carousel__image-container">
-      <img :src="imgSrc" class="carousel__image" :alt="imgAlt" />
+      <ovl-transition name="fade">
+        <img :src="imgSrc" class="carousel__image" :alt="imgAlt" />
+      </ovl-transition>
     </div>
     <div class="carousel__indicator-container">
       <div
@@ -19,8 +21,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import OvlTransition from "@/components/atomic/OvlTransition.vue";
 
-@Component
+@Component({ components: { OvlTransition } })
 export default class OvlCarousel extends Vue {
   @Prop({ required: true }) private carouselImages!: Image[];
 
@@ -29,6 +32,10 @@ export default class OvlCarousel extends Vue {
   carouselInterval = setInterval(() => {
     this.next();
   }, 5000);
+
+  get nextIndex() {
+    return (this.currentIndex + 1) % this.carouselImages.length;
+  }
 
   get imgSrc() {
     return this.carouselImages[this.currentIndex].src;
@@ -39,7 +46,7 @@ export default class OvlCarousel extends Vue {
   }
 
   next() {
-    this.currentIndex = (this.currentIndex + 1) % this.carouselImages.length;
+    this.currentIndex = this.nextIndex;
     this.$emit("did-change", this.currentIndex);
   }
 

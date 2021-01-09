@@ -44,7 +44,7 @@ export default class Home extends Vue {}
 
 .ovl-notification-style {
   color: var(--color-light);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
   background: var(--color-dark);
 }
 
